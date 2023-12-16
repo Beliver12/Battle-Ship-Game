@@ -21,4 +21,5 @@ function Gameboard() {
   };
 }
 const temp = Gameboard();
+console.log(temp.board)
 export default temp;

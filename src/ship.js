@@ -1,10 +1,7 @@
 import printMe from './gameboard.js';
 
 function Ship(name = null, length = null, hitTimes = 0, isSunk = false) {
-  const hit = (obj) => {
-    obj.hitTimes++;
-    return obj;
-  };
+  const hit = (obj) => { obj.hitTimes += 1 };
 
   const isSunkFn = (obj, shipLength, hits) => {
     if (shipLength === hits) {
@@ -20,5 +17,5 @@ function Ship(name = null, length = null, hitTimes = 0, isSunk = false) {
 }
 const myShip1 = Ship('Carrier', 5);
 console.log(myShip1);
-printMe();
+//printMe();
 export default myShip1;

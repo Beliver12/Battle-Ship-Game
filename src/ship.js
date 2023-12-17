@@ -1,6 +1,6 @@
-import printMe from './gameboard.js';
+import Gameboard from './gameboard.js';
 
-function Ship(name = null, length = null, hitTimes = 0, isSunk = false) {
+ export default function Ship(name = null, length = null, hitTimes = 0, isSunk = false) {
   const hit = (obj) => { obj.hitTimes += 1 };
 
   const isSunkFn = (obj, shipLength, hits) => {
@@ -15,7 +15,6 @@ function Ship(name = null, length = null, hitTimes = 0, isSunk = false) {
     name, length, hitTimes, isSunk, hit, isSunkFn,
   };
 }
-const myShip1 = Ship('Carrier', 5);
-console.log(myShip1);
+//const myShip1 = Ship('Carrier', 5);
+//console.log(myShip1);
 //printMe();
-export default myShip1;

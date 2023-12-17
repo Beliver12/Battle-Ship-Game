@@ -1,7 +1,8 @@
 //const sum = require('./sum');
-import myShip1 from './ship';
+import Ship from './ship';
 
 test('ship is sunk after hitting whole length', () => {
+  const myShip1 = Ship();
   myShip1.hit(myShip1);
   myShip1.hit(myShip1);
   myShip1.hit(myShip1);

@@ -36,9 +36,10 @@ function Gameboard() {
       const temp = board[x][y];
       temp.hit(temp);
       board[x][y] = 'hit';
+    } else {
+    board[x][y] = 'miss';
     }
-    board[x][y] = 'hit';
-  }
+  };
   return {
     get board() {
       return board;
@@ -54,4 +55,6 @@ const board2 = Gameboard();
 board2.placeShip(carrier, [4, 0], [0, 0]);
 board2.recieveAttack(4, 0);
 board.placeShip(carrier, [5, 5], [5, 9]);
+console.log(board.board);
+console.log(board2.board)
 export { board, board2 };

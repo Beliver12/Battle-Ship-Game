@@ -1,6 +1,6 @@
 import Ship from './ship';
 
- function Gameboard() {
+function Gameboard() {
   const createBoard = (arr = []) => {
     const rows = 10;
     const columns = 10;
@@ -13,7 +13,14 @@ import Ship from './ship';
     return arr;
   };
   const board = createBoard();
-  const placeShip = (ship, start, end) => {
+  const placeShip = (ship, pointA, pointB) => {
+    let start = pointA;
+    let end = pointB;
+    if (pointB[0] < pointA[0] || pointB[1] < pointA[1]) {
+      start = pointB;
+      end = pointA;
+    }
+
     if (end[1] > start[1]) {
       for (let i = 0; i < ship.length; i++) {
         board[start[0]][start[1] + i] = true;
@@ -24,15 +31,22 @@ import Ship from './ship';
       }
     }
   };
+  const recieveAttack = (x, y) => {
+    board[x][y] = 'hit';
+  }
   return {
     get board() {
       return board;
     },
     createBoard,
     placeShip,
+    recieveAttack,
   };
 }
 const board = Gameboard();
 const carrier = Ship('Carrier', 5);
+const board2 = Gameboard();
+board2.placeShip(carrier, [4, 0], [0, 0]);
+board2.recieveAttack(5, 0);
 board.placeShip(carrier, [5, 5], [5, 9]);
-export default board;
+export { board, board2 };

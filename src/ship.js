@@ -1,4 +1,4 @@
-import Gameboard from './gameboard.js';
+import {board2} from './gameboard';
 
  export default function Ship(name = null, length = null, hitTimes = 0, isSunk = false) {
   const hit = (obj) => { obj.hitTimes += 1 };

@@ -5,15 +5,15 @@ test('Board length is 10', () => {
 });
 
 test('ship is placed at corect position', () => {
-  expect(board.board[5][5]).toBe(true);
+  expect(board.board[5][5]).toBe('Carrier');
 });
 
 test('ship is placed at corect position', () => {
-  expect(board.board[5][6]).toBe(true);
+  expect(board.board[5][6]).toBe('Carrier');
 });
 
 test('ship is placed at corect position', () => {
-  expect(board.board[5][7]).toBe(true);
+  expect(board.board[5][7]).toBe('Carrier');
 });
 
 test('ship is placed at corect position', () => {

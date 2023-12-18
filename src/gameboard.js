@@ -23,15 +23,20 @@ function Gameboard() {
 
     if (end[1] > start[1]) {
       for (let i = 0; i < ship.length; i++) {
-        board[start[0]][start[1] + i] = true;
+        board[start[0]][start[1] + i] = ship;
       }
     } else if (end[0] > start[0]) {
       for (let i = 0; i < ship.length; i++) {
-        board[start[0] + i][start[1]] = true;
+        board[start[0] + i][start[1]] = ship;
       }
     }
   };
   const recieveAttack = (x, y) => {
+    if (board[x][y] !== false) {
+      const temp = board[x][y];
+      temp.hit(temp);
+      board[x][y] = 'hit';
+    }
     board[x][y] = 'hit';
   }
   return {
@@ -47,6 +52,6 @@ const board = Gameboard();
 const carrier = Ship('Carrier', 5);
 const board2 = Gameboard();
 board2.placeShip(carrier, [4, 0], [0, 0]);
-board2.recieveAttack(5, 0);
+board2.recieveAttack(4, 0);
 board.placeShip(carrier, [5, 5], [5, 9]);
 export { board, board2 };

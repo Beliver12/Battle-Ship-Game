@@ -1,5 +1,5 @@
 import Ship from './ship';
-
+import { player } from './player';
 function Gameboard() {
   const createBoard = (arr = []) => {
     const rows = 10;
@@ -16,6 +16,12 @@ function Gameboard() {
   const placeShip = (ship, pointA, pointB) => {
     let start = pointA;
     let end = pointB;
+
+    if (board.some((row) => row.includes(ship))) {
+      console.log('Allready have that ship');
+      return false;
+    }
+
     if (pointB[0] < pointA[0] || pointB[1] < pointA[1]) {
       start = pointB;
       end = pointA;
@@ -30,15 +36,36 @@ function Gameboard() {
         board[start[0] + i][start[1]] = ship;
       }
     }
+    return true;
   };
   const recieveAttack = (x, y) => {
-    if (board[x][y] !== false) {
+    let missed = 0;
+    if (board[x][y] !== false && board[x][y] !== 'hit') {
       const temp = board[x][y];
       temp.hit(temp);
       board[x][y] = 'hit';
+    } else if (board[x][y] === false && board[x][y] !== 'miss' && board[x][y] !== 'hit') {
+      board[x][y] = 'miss';
+      missed++;
+      return 'miss';
     } else {
-    board[x][y] = 'miss';
+      return 'that position is allready hit';
     }
+  };
+
+  const status = (board) => {
+    let hits = 0;
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (board[i][j] === 'hit') {
+          hits++;
+        }
+      }
+    }
+    if (hits === 17) {
+      return 'all ships have been sunk';
+    }
+    return 'keep playing';
   };
   return {
     get board() {
@@ -47,14 +74,20 @@ function Gameboard() {
     createBoard,
     placeShip,
     recieveAttack,
+    status,
   };
 }
 const board = Gameboard();
 const carrier = Ship('Carrier', 5);
+const battleship = Ship('Battleship', 4);
+const cruiser = Ship('Cruiser', 3);
+const submarine = Ship('Submarine', 3);
+const destroyer = Ship('Destroyer', 2);
 const board2 = Gameboard();
-board2.placeShip(carrier, [4, 0], [0, 0]);
-board2.recieveAttack(4, 0);
+
+board2.status(board2.board);
 board.placeShip(carrier, [5, 5], [5, 9]);
-console.log(board.board);
-console.log(board2.board)
-export { board, board2 };
+
+export {
+  board, board2, carrier, battleship, destroyer, submarine, cruiser,
+};

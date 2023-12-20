@@ -1,47 +1,37 @@
-import { board, board2 } from './gameboard';
-console.log(board.board[5][5].name)
-test('Board length is 10', () => {
-  expect(board.board.length).toBe(10);
+import {
+  board, board2, carrier, battleship, destroyer, submarine, cruiser,
+} from './gameboard';
+
+
+
+test.only('after hitting all ships', () => {
+  board2.placeShip(carrier, [4, 0], [0, 0]);
+  board2.placeShip(battleship, [7, 5], [7, 9]);
+  board2.placeShip(cruiser, [5, 5], [5, 7]);
+  board2.placeShip(submarine, [2, 2], [2, 4]);
+  board2.placeShip(destroyer, [8, 5], [8, 6]);
+  board2.recieveAttack(4, 0);
+  board2.recieveAttack(3, 0);
+  board2.recieveAttack(2, 0);
+  board2.recieveAttack(1, 0);
+  board2.recieveAttack(0, 0);
+  board2.recieveAttack(7, 5);
+  board2.recieveAttack(7, 6);
+  board2.recieveAttack(7, 7);
+  board2.recieveAttack(7, 8);
+  board2.recieveAttack(7, 9);
+
+  board2.recieveAttack(5, 5);
+  board2.recieveAttack(5, 6);
+  board2.recieveAttack(5, 7);
+  board2.recieveAttack(2, 2);
+  board2.recieveAttack(2, 3);
+  board2.recieveAttack(2, 4);
+  board2.recieveAttack(8, 5);
+  board2.recieveAttack(8, 6);
+  expect(board2.status(board2.board)).toBe('all ships have been sunk');
 });
 
-test('ship is placed at corect position', () => {
-  console.log(board.board[5][5].name)
-  expect(board.board[5][5].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board.board[5][6].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board.board[5][7].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board.board[5][8].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board.board[5][9].name).toBe('Carrier');
-});
-
-//
-test('ship is placed at corect position', () => {
-  expect(board2.board[0][0].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board2.board[1][0].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board2.board[2][0].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board2.board[3][0].name).toBe('Carrier');
-});
-
-test('ship is placed at corect position', () => {
-  expect(board2.board[4][0]).toBe('hit');
+test.only('ship is placed at corect position', () => {
+  expect(board2.recieveAttack(8, 6)).toBe('that position is allready hit');
 });

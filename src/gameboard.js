@@ -1,8 +1,8 @@
 import Ship from './ship';
 import { player } from './player';
-import  createBoard  from './dom';
+import Createboard from './dom.js';
 
-function Gameboard() {
+export default function Gameboard() {
   const createBoard = (arr = []) => {
     const rows = 10;
     const columns = 10;
@@ -111,11 +111,11 @@ const board2 = Gameboard();
 board2.recieveAttack(8, 6);
 
 board.placeShip(carrier, [0, 0], [0, 4]);
-createBoard();
+Createboard();
 const missed = board2.missedShots(board2.board);
 console.log(missed)
 board2.status(board2.board);
 
 export {
-  board, board2, carrier, battleship, destroyer, submarine, cruiser,
+  board2, battleship, destroyer, submarine, cruiser, board,
 };

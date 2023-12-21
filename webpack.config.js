@@ -5,7 +5,6 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/ship.js',
-    print: './src/gameboard.js',
   },
   devtool: 'inline-source-map',
   plugins: [

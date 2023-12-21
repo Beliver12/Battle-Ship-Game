@@ -1,7 +1,8 @@
-import { board, board2 } from './gameboard';
+import { board } from './gameboard';
 import './style.css';
+import { Game } from './game';
 
-export default function createBoard() {
+export default function Createboard() {
   const boardDiv1 = document.createElement('div');
   boardDiv1.classList.add('board1');
   document.body.appendChild(boardDiv1);
@@ -15,7 +16,7 @@ export default function createBoard() {
       if (typeof board.board[i][j] === 'object') {
         cellButton1.style.backgroundColor = 'blue';
       }
-      console.log(board.board)
+      console.log(board.board);
     }
   }
 
@@ -30,4 +31,27 @@ export default function createBoard() {
     }
   } */
 }
+const popModule = document.createElement('button');
+document.body.appendChild(popModule);
+popModule.textContent = 'PLAY';
+popModule.addEventListener('click', () => {
+  Game();
+});
+function promptModal() {
+  const createModal = document.createElement('div');
+  const modalContent = document.createElement('form');
+  createModal.classList.add('modal-div')
+  const confirm = document.createElement('button');
+  const playerName = document.createElement('input');
+  document.body.appendChild(createModal);
 
+  createModal.appendChild(modalContent);
+  modalContent.appendChild(confirm);
+  modalContent.appendChild(playerName);
+  confirm.textContent = 'CONFIRM';
+  modalContent.setAttribute("id", "modal-content");
+  createModal.setAttribute("id", "myModal")
+  createModal.style.display = 'block';
+}
+
+export { promptModal };

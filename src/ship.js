@@ -15,6 +15,3 @@ import {board2} from './gameboard';
     name, length, hitTimes, isSunk, hit, isSunkFn,
   };
 }
-//const myShip1 = Ship('Carrier', 5);
-//console.log(myShip1);
-//printMe();

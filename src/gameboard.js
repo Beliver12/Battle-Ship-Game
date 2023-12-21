@@ -1,5 +1,7 @@
 import Ship from './ship';
 import { player } from './player';
+import  createBoard  from './dom';
+
 function Gameboard() {
   const createBoard = (arr = []) => {
     const rows = 10;
@@ -38,19 +40,39 @@ function Gameboard() {
     }
     return true;
   };
+
+  const hitSpots = (board) => {
+    const hitSpot = [];
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (board[i][j] === 'miss') {
+          hitSpot.push(i, j);
+        }
+      }
+    }
+    return hitSpot;
+  };
+  const missedShots = (board) => {
+    const missSpot = [];
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (board[i][j] === 'miss') {
+          missSpot.push(i, j);
+        }
+      }
+    }
+    return missSpot;
+  };
+
   const recieveAttack = (x, y) => {
-    let missed = 0;
     if (board[x][y] !== false && board[x][y] !== 'hit') {
       const temp = board[x][y];
       temp.hit(temp);
       board[x][y] = 'hit';
-    } else if (board[x][y] === false && board[x][y] !== 'miss' && board[x][y] !== 'hit') {
+    } if (board[x][y] === false && board[x][y] !== 'miss' && board[x][y] !== 'hit') {
       board[x][y] = 'miss';
-      missed++;
-      return 'miss';
-    } else {
-      return 'that position is allready hit';
     }
+    return 'that position is allready hit';
   };
 
   const status = (board) => {
@@ -75,6 +97,8 @@ function Gameboard() {
     placeShip,
     recieveAttack,
     status,
+    hitSpots, 
+    missedShots,
   };
 }
 const board = Gameboard();
@@ -84,9 +108,13 @@ const cruiser = Ship('Cruiser', 3);
 const submarine = Ship('Submarine', 3);
 const destroyer = Ship('Destroyer', 2);
 const board2 = Gameboard();
+board2.recieveAttack(8, 6);
 
+board.placeShip(carrier, [0, 0], [0, 4]);
+createBoard();
+const missed = board2.missedShots(board2.board);
+console.log(missed)
 board2.status(board2.board);
-board.placeShip(carrier, [5, 5], [5, 9]);
 
 export {
   board, board2, carrier, battleship, destroyer, submarine, cruiser,

@@ -1,4 +1,22 @@
-.hello {
-    color: red;
-    background: url('./icon.jpg');
+.board1 {
+  display: grid;
+  height: 1000px;
+  width: 1000px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border: 1px solid black;
+  gap: 2px;
+  padding: 2px;
+  background-color: yellow;
+  }
+
+  .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid grey;
+    background: lightyellow;
+    cursor: pointer;
   }

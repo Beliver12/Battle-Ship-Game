@@ -1,11 +1,21 @@
-import { Player } from './player';
+import { Player, player1, player2 } from './player';
 
-test.only('ship is placed at corect position', () => {
-  const player1 = Player('Nikola');
+test.only('creates player1 object with name', () => {
   expect(player1.name).toBe('Nikola');
 });
 
-test.only('ship is placed at corect position', () => {
-  const player2 = Player('Luka');
+test.only('creates player2 object with name', () => {
   expect(player2.name).toBe('Luka');
 });
+
+test.only('sets different active player when called', () => {
+  expect(player1.switchPlayerTurn(player1)).toBe('Luka');
+});
+
+test.only('sets different active player when called', () => {
+  expect(player2.switchPlayerTurn(player2)).toBe('Nikola');
+});
+
+test.only('sets different active player when called', () => {
+    expect(player1.switchPlayerTurn(player1)).toBe('Luka');
+  });

@@ -39,41 +39,41 @@ export default function Createboard() {
   }
 }
 
+const createModal = document.createElement('div');
+const modalContent = document.createElement('form');
+createModal.classList.add('modal-div');
+const confirm = document.createElement('button');
+const playerName1 = document.createElement('input');
+const playerName2 = document.createElement('input');
+
+document.body.appendChild(createModal);
+
+createModal.appendChild(modalContent);
+modalContent.appendChild(confirm);
+modalContent.appendChild(playerName1);
+modalContent.appendChild(playerName2);
+playerName1.setAttribute('placeholder', 'type-name');
+playerName2.setAttribute('placeholder', 'type-name');
+confirm.textContent = 'CONFIRM';
+confirm.setAttribute('id', 'confirm');
+modalContent.setAttribute('id', 'modal-content');
+createModal.setAttribute('id', 'myModal');
+
+const player1 = document.createElement('h2');
+const player2 = document.createElement('h2');
+confirm.addEventListener('click', () => {
+  player1.textContent = playerName1.value;
+  player2.textContent = playerName2.value;
+  document.body.appendChild(player1);
+  document.body.appendChild(player2);
+  createModal.style.display = 'none';
+  Createboard();
+});
 
 const popModule = document.createElement('button');
 document.body.appendChild(popModule);
 popModule.textContent = 'PLAY';
 popModule.addEventListener('click', () => {
-  Game();
-});
-function promptModal() {
-  const createModal = document.createElement('div');
-  const modalContent = document.createElement('form');
-  createModal.classList.add('modal-div');
-  const confirm = document.createElement('button');
-  const playerName1 = document.createElement('input');
-  const playerName2 = document.createElement('input');
-  document.body.appendChild(createModal);
-
-  createModal.appendChild(modalContent);
-  modalContent.appendChild(confirm);
-  modalContent.appendChild(playerName1);
-  modalContent.appendChild(playerName2);
-  playerName1.setAttribute('placeholder', 'type-name');
-  playerName2.setAttribute('placeholder', 'type-name');
-  confirm.textContent = 'CONFIRM';
-  modalContent.setAttribute('id', 'modal-content');
-  createModal.setAttribute('id', 'myModal');
+  popModule.style.visibility = 'hidden';
   createModal.style.display = 'block';
-  confirm.addEventListener('click', () => {
-    const player1 = document.createElement('h2');
-    const player2 = document.createElement('h2');
-    player1.textContent = playerName1.value;
-    player2.textContent = playerName2.value;
-    document.body.appendChild(player1);
-    document.body.appendChild(player2);
-    popModule.style.visibility = 'hidden';
-  })
-}
-
-export { promptModal };
+});

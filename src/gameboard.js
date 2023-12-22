@@ -120,7 +120,7 @@ board2.placeShip(cruiser, [5, 5], [5, 7]);
 board2.placeShip(submarine, [2, 2], [2, 4]);
 board2.placeShip(destroyer, [8, 5], [8, 6]);
 board2.recieveAttack(8, 6);
-Createboard();
+
 const missed = board2.missedShots(board2.board);
 console.log(missed)
 board2.status(board2.board);

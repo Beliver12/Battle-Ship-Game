@@ -1,12 +1,17 @@
 import { board2, board } from './gameboard';
-//import { promptModal } from './dom';
+import Createboard from './dom';
+// import { promptModal } from './dom';
 
 function Game() {
-  //promptModal();
- /* while (board.status(board.board) !== 'all ships have been sunk'
-    || board2.status(board2.board) !== 'all ships have been sunk') {
-
-  }*/
+  if (board.status(board.board) === 'all ships have been sunk') {
+    alert('player2 wins');
+    return false;
+  } 
+  if (board.status(board2.board) === 'all ships have been sunk') {
+    alert('player1 wins');
+    return false;
+  } 
+  Createboard();
 }
 
-//export { Game };
+export { Game };

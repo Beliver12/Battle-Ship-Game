@@ -1,5 +1,4 @@
 import Ship from './ship';
-import { player } from './player';
 import Createboard from './dom.js';
 
 export default function Gameboard() {
@@ -69,10 +68,14 @@ export default function Gameboard() {
       const temp = board[x][y];
       temp.hit(temp);
       board[x][y] = 'hit';
+      alert('hit');
     } if (board[x][y] === false && board[x][y] !== 'miss' && board[x][y] !== 'hit') {
       board[x][y] = 'miss';
+      alert('miss');
+    } else {
+      alert('that position is allready hit');
+      return false;
     }
-    return 'that position is allready hit';
   };
 
   const status = (board) => {
@@ -97,7 +100,7 @@ export default function Gameboard() {
     placeShip,
     recieveAttack,
     status,
-    hitSpots, 
+    hitSpots,
     missedShots,
   };
 }
@@ -119,10 +122,10 @@ board2.placeShip(battleship, [7, 5], [7, 9]);
 board2.placeShip(cruiser, [5, 5], [5, 7]);
 board2.placeShip(submarine, [2, 2], [2, 4]);
 board2.placeShip(destroyer, [8, 5], [8, 6]);
-board2.recieveAttack(8, 6);
+//board2.recieveAttack(8, 6);
 
 const missed = board2.missedShots(board2.board);
-console.log(missed)
+console.log(missed);
 board2.status(board2.board);
 
 export {

@@ -1,28 +1,42 @@
-function Player(name) {
-  let activePlayer = name;
+import { playerName1, playerName2, player1, player2 } from "./dom";
+
+function createPlayers(name) {
+  const players = [
+    {
+      name,
+    },
+    {
+      name,
+    },
+  ];
+  let activePlayer = players[0];
   const switchPlayerTurn = () => {
-    if (activePlayer.name === player1.name) {
-      activePlayer = player2;
+    if (activePlayer === players[0]) {
+      activePlayer = players[1];
+      player1.textContent = `Player: ${activePlayer.name}'s turn`;
+      player2.textContent = `Player: ${players[0].name}`;
     } else {
-      activePlayer = player1;
+      activePlayer = players[0];
+      player1.textContent = `Player: ${activePlayer.name}'s turn`;
+      player2.textContent = `Player: ${players[1].name}`;
     }
-    return activePlayer.name;
+    return activePlayer;
   };
+  const getActivePlayer = () => activePlayer;
+  const choosePlayerName = () => {
+    players[0].name = '';
+    players[1].name = '';
+    players[0].name = playerName1.value;
+    players[1].name = playerName2.value;
+  }
 
   return {
     name,
     switchPlayerTurn,
-    get activePlayer() {
-      return activePlayer;
-    },
+    choosePlayerName,
+    getActivePlayer,
   };
 }
-const player1 = Player('Nikola');
-const player2 = Player('Luka');
-player2.switchPlayerTurn();
-player2.switchPlayerTurn();
-player1.switchPlayerTurn();
-console.log(player1.activePlayer);
-player2.switchPlayerTurn();
-console.log(player2.activePlayer)
-export { Player, player1, player2 };
+
+
+export { createPlayers};

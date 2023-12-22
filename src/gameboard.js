@@ -108,9 +108,18 @@ const cruiser = Ship('Cruiser', 3);
 const submarine = Ship('Submarine', 3);
 const destroyer = Ship('Destroyer', 2);
 const board2 = Gameboard();
-board2.recieveAttack(8, 6);
 
-board.placeShip(carrier, [0, 0], [0, 4]);
+board.placeShip(carrier, [4, 0], [0, 0]);
+board.placeShip(battleship, [7, 5], [7, 9]);
+board.placeShip(cruiser, [5, 5], [5, 7]);
+board.placeShip(submarine, [2, 2], [2, 4]);
+board.placeShip(destroyer, [8, 5], [8, 6]);
+board2.placeShip(carrier, [4, 0], [0, 0]);
+board2.placeShip(battleship, [7, 5], [7, 9]);
+board2.placeShip(cruiser, [5, 5], [5, 7]);
+board2.placeShip(submarine, [2, 2], [2, 4]);
+board2.placeShip(destroyer, [8, 5], [8, 6]);
+board2.recieveAttack(8, 6);
 Createboard();
 const missed = board2.missedShots(board2.board);
 console.log(missed)

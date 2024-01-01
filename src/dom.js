@@ -19,19 +19,18 @@ const placeShip1Label = document.createElement('form');
 placeShip1Label.setAttribute('id', 'form');
 const placeShip1Name = document.createElement('select');
 
-const placeShip1CordinatesLabel = document.createElement('label')
+const placeShip1CordinatesLabel = document.createElement('label');
 const placeShip1Cordinates = document.createElement('input');
 placeShip1Cordinates.setAttribute('type', 'number');
 placeShip1Cordinates.setAttribute('min', '00');
 placeShip1Cordinates.setAttribute('max', '99');
-const placeShip2CordinatesLabel = document.createElement('label')
+const placeShip2CordinatesLabel = document.createElement('label');
 const placeShip2Cordinates = document.createElement('input');
 placeShip2Cordinates.setAttribute('type', 'number');
 placeShip2Cordinates.setAttribute('min', '00');
 placeShip2Cordinates.setAttribute('max', '99');
 const placeShipBtn = document.createElement('button');
 const description = document.createElement('div');
-
 
 function createOption() {
   while (placeShip1Name.firstChild) {
@@ -93,6 +92,7 @@ export default function Createboard() {
         || boardToinsert.board[i][j] === 'hit'
       ) {
         cellButton1.style.backgroundColor = 'blue';
+        cellButton1.textContent = '';
       }
       if (boardToAtt.board[i][j] === 'miss') {
         cellButton2.style.backgroundColor = 'red';
@@ -139,11 +139,12 @@ export default function Createboard() {
           Number(e.currentTarget.attributes.y.value),
         );
         // e.currentTarget.disabled = true;
-        players.switchPlayerTurn();
+
         if (Game() === false) {
           while (container.firstChild) {
             container.removeChild(container.firstChild);
           }
+          players.switchPlayerTurn();
           popModule.style.visibility = 'visible';
           popModule2.style.visibility = 'visible';
         }
@@ -265,16 +266,25 @@ placeShipBtn.addEventListener('click', (event) => {
     alert('Cant enter number bigger than 9 try again!');
     return false;
   }
-  let x = Number(placeShip1Cordinates.value);
-  let y = Number(placeShip2Cordinates.value);
-  if (x > y) {
-    y += ship.length;
+
+  let x = Number(placeShip1Cordinates.value[0]);
+  let y = Number(placeShip1Cordinates.value[1]);
+  let x2 = Number(placeShip2Cordinates.value[0]);
+  let y2 = Number(placeShip2Cordinates.value[1]);
+  if (x > x2) {
+    x2 += ship.length;
     x += 1;
-  } else {
+  } else if (x2 > x) {
     x += ship.length;
+    x2 += 1;
+  } else if (y > y2) {
+    y2 += ship.length;
     y += 1;
+  } else {
+    y += ship.length;
+    y2 += 1;
   }
-  if (x !== y) {
+  if (x !== x2 || y !== y2) {
     alert('Cordinates are Invalid try again!');
     return false;
   }
@@ -304,6 +314,8 @@ placeShipBtn.addEventListener('click', (event) => {
       ],
     );
   }
+  placeShip1Cordinates.value = '';
+  placeShip2Cordinates.value = '';
   Createboard();
 });
 const createModal = document.createElement('div');

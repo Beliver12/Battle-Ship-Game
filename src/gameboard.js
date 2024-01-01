@@ -20,7 +20,7 @@ export default function Gameboard() {
     let end = pointB;
 
     if (board.some((row) => row.includes(ship))) {
-      console.log('Allready have that ship');
+      alert('Allready have that ship');
       return false;
     }
 

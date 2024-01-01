@@ -1,4 +1,6 @@
-import { playerName1, playerName2, player1, player2 } from "./dom";
+import {
+  playerName1, playerName2, player1, player2, player,
+} from './dom';
 
 function createPlayers(name) {
   const players = [
@@ -14,11 +16,9 @@ function createPlayers(name) {
     if (activePlayer === players[0]) {
       activePlayer = players[1];
       player1.textContent = `Player: ${activePlayer.name}'s turn`;
-      player2.textContent = `Player: ${players[0].name}`;
     } else {
       activePlayer = players[0];
       player1.textContent = `Player: ${activePlayer.name}'s turn`;
-      player2.textContent = `Player: ${players[1].name}`;
     }
     return activePlayer;
   };
@@ -27,8 +27,11 @@ function createPlayers(name) {
     players[0].name = '';
     players[1].name = '';
     players[0].name = playerName1.value;
+    if (playerName1.value === '') {
+      players[0].name = player.value;
+    }
     players[1].name = playerName2.value;
-  }
+  };
 
   return {
     name,
@@ -38,5 +41,4 @@ function createPlayers(name) {
   };
 }
 
-
-export { createPlayers};
+export { createPlayers };

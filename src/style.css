@@ -1,7 +1,7 @@
 .board1, .board2 {
   display: grid;
-  height: 600px;
-  width: 600px;
+  height: 550px;
+  width: 550px;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   border: 1px solid black;
@@ -9,30 +9,36 @@
   padding: 2px;
   background-color: yellow;
   grid-row: 2/3;
+  margin-top: 60px;
   }
   body{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px 1fr;
+    grid-template-rows: 50px 1fr;
+    height: 100%;
+    margin: 0px;
   }
   .board1 {
     grid-column: 1/2;
     justify-self: center;
+    align-self: flex-end;
   }
   .board2 {
     grid-column: 2/3;
     justify-self: center;
+    align-self: flex-end;
   }
   #player1{
     grid-row: 1/2; 
-    justify-self: center;
+    justify-self: flex-end;
     color: white;
+    background: rgba(0, 0, 0, 0.55);
+    text-align: center;
+    height: 40px;
+    margin-top: 0px;
+    padding: 10px;
   }
-#player2 {
-  grid-row: 1/2;
-  justify-self: center;
-  color: white;
-}
+
   .cell {
     display: flex;
     justify-content: center;
@@ -55,17 +61,20 @@
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    background: rgba(31, 28, 28, 0.55);
   }
 
   #container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 1fr;
     column-gap: 150px;
     width: 100%;
     height: 100%;
     grid-row: 2/3;
     grid-column: 1/3;
-    background: rgba(48, 6, 6, 0.55);
+    row-gap: 10px;
   }
 #container > label {
   grid-row: 1/2;
@@ -88,6 +97,8 @@
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    background: rgba(31, 28, 28, 0.55);
   }
 
   #img {
@@ -141,7 +152,41 @@
 
   body{
     background-image: url(incredible-major-steampunk-balloon-floating-water-surface-illustrations-generative-ai.jpg);
-    background-size: 100%;
+    background-size: 85%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position:top ;
+  }
+
+  #form{
+    margin-top: 0px;
+    align-self: center;
+    justify-self: center;
+    display: grid;
+width: 500px;
+
+  }
+
+  #form > div {
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    text-align: center;
+    width: 200px;
+    font-size: large;
+    justify-self: center;
+  }
+
+  #form > label {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    width: 300px;
+    justify-self: center;
+  }
+  #form > input, select {
+    width: 300px;
+    justify-self: center;
+  }
+  #form > button {
+    width: 100px;
+    justify-self: center;
   }

@@ -15,18 +15,23 @@ const players = createPlayers();
 const container = document.createElement('div');
 container.setAttribute('id', 'container');
 document.body.appendChild(container);
-const placeShip1Label = document.createElement('label');
+const placeShip1Label = document.createElement('form');
+placeShip1Label.setAttribute('id', 'form');
 const placeShip1Name = document.createElement('select');
 
+const placeShip1CordinatesLabel = document.createElement('label')
 const placeShip1Cordinates = document.createElement('input');
 placeShip1Cordinates.setAttribute('type', 'number');
 placeShip1Cordinates.setAttribute('min', '00');
 placeShip1Cordinates.setAttribute('max', '99');
+const placeShip2CordinatesLabel = document.createElement('label')
 const placeShip2Cordinates = document.createElement('input');
 placeShip2Cordinates.setAttribute('type', 'number');
 placeShip2Cordinates.setAttribute('min', '00');
 placeShip2Cordinates.setAttribute('max', '99');
 const placeShipBtn = document.createElement('button');
+const description = document.createElement('div');
+
 
 function createOption() {
   while (placeShip1Name.firstChild) {
@@ -64,7 +69,7 @@ export default function Createboard() {
   let boardToinsert = board;
   let boardToAtt = board2;
 
-  if (activePlayer.name !== playerName1.value) {
+  if (activePlayer.name !== playerName1.value && activePlayer.name !== player.value) {
     boardToinsert = board2;
     boardToAtt = board;
   }
@@ -81,6 +86,8 @@ export default function Createboard() {
       cellButton2.setAttribute('x', i);
       cellButton2.setAttribute('y', j);
       cellButton2.setAttribute('value', temp++);
+      cellButton1.textContent = `${i}${j}`;
+      cellButton1.style.color = '#909692';
       if (
         typeof boardToinsert.board[i][j] === 'object'
         || boardToinsert.board[i][j] === 'hit'
@@ -95,23 +102,35 @@ export default function Createboard() {
         cellButton2.style.backgroundColor = 'green';
       }
       if (board.status(boardToinsert.board) === false) {
-        placeShip1Label.textContent = 'Enter ship name and X and Y Cordinates';
         container.appendChild(placeShip1Label);
+        placeShip1Label.appendChild(description);
+        description.textContent = `Carrier-size: 5-cells
+                                  Battleship-size: 4-cells
+                                  Cruiser-size: 3-cells
+                                  Submarine-size: 3-cells
+                                  Destroyer-size: 2-cells`;
         placeShip1Label.appendChild(placeShip1Name);
+        placeShip1Label.appendChild(placeShip1CordinatesLabel);
+        placeShip1CordinatesLabel.textContent = `Type in two digit number of board's cell
+                                                where you want your ship to start`;
         placeShip1Label.appendChild(placeShip1Cordinates);
+        placeShip1Label.appendChild(placeShip2CordinatesLabel);
+        placeShip2CordinatesLabel.textContent = `Type in two digit number of board's cell
+                                                  where you want your ship to end, TIP:
+                                                  each ship has how much cells it can take.`;
         placeShip1Label.appendChild(placeShip2Cordinates);
         placeShip1Label.appendChild(placeShipBtn);
         placeShipBtn.textContent = 'Submit';
         placeShip1Cordinates.setAttribute(
           'placeholder',
-          'point-a = 2 numbers from 0 - 9',
+          '00 - 99',
         );
         placeShip2Cordinates.setAttribute(
           'placeholder',
-          'point-b = 2 numbers from 0 - 9',
+          '00 - 99',
         );
         cellButton2.disabled = true;
-        player1.textContent = `Place your ships Player ${activePlayer.name}`;
+        player1.textContent = `Place your ships Player: ${activePlayer.name}`;
       }
 
       cellButton2.addEventListener('click', (e) => {
@@ -231,6 +250,7 @@ export default function Createboard() {
 }
 
 placeShipBtn.addEventListener('click', (event) => {
+  event.preventDefault();
   const activePlayer = players.getActivePlayer();
   const ships = [carrier, battleship, cruiser, submarine, destroyer];
 
@@ -239,7 +259,6 @@ placeShipBtn.addEventListener('click', (event) => {
   for (let i = 0; i < ships.length; i++) {
     if (ships[i].name === selectedOption.value) {
       ship = ships[i];
-      selectedOption.disabled = true;
     }
   }
   if (placeShip1Cordinates.value > 99 && placeShip2Cordinates.value > 99) {
@@ -259,7 +278,8 @@ placeShipBtn.addEventListener('click', (event) => {
     alert('Cordinates are Invalid try again!');
     return false;
   }
-  if (activePlayer.name !== playerName1.value && activePlayer.name !== 'AI') {
+  if ((activePlayer.name !== playerName1.value && activePlayer.name !== player.value)
+    && activePlayer.name !== 'AI') {
     board2.placeShip(
       ship,
       [
@@ -271,7 +291,7 @@ placeShipBtn.addEventListener('click', (event) => {
         Number(placeShip2Cordinates.value[1]),
       ],
     );
-  } else if (activePlayer.name === playerName1.value) {
+  } else if (activePlayer.name === playerName1.value || activePlayer.name === player.value) {
     board.placeShip(
       ship,
       [
@@ -284,7 +304,6 @@ placeShipBtn.addEventListener('click', (event) => {
       ],
     );
   }
-  event.preventDefault();
   Createboard();
 });
 const createModal = document.createElement('div');
@@ -298,12 +317,16 @@ const playerName2 = document.createElement('input');
 
 document.body.appendChild(createModal);
 
+const exit1 = document.createElement('button');
+exit1.textContent = 'X';
 createModal.appendChild(modalContent);
+modalContent.appendChild(exit1);
 modalContent.appendChild(confirm);
 modalContent.appendChild(playerName1Label);
 modalContent.appendChild(playerName1);
 modalContent.appendChild(playerName2Label);
 modalContent.appendChild(playerName2);
+
 playerName1Label.textContent = 'PLAYER-1';
 playerName2Label.textContent = 'PLAYER-2';
 playerName1.setAttribute('placeholder', 'type-name');
@@ -321,7 +344,6 @@ player2.setAttribute('id', 'player2');
 confirm.addEventListener('click', (event) => {
   players.choosePlayerName();
   player1.textContent = playerName1.value;
-  player2.textContent = playerName2.value;
   document.body.appendChild(player1);
   document.body.appendChild(player2);
   createModal.style.display = 'none';
@@ -347,12 +369,17 @@ createModal2.classList.add('modal-div');
 const confirm2 = document.createElement('button');
 const playerLabel = document.createElement('label');
 const player = document.createElement('input');
+const exit2 = document.createElement('button');
 
+exit2.textContent = 'X';
 document.body.appendChild(createModal2);
 createModal2.appendChild(modalContent2);
+modalContent2.appendChild(exit2);
+exit1.style.width = '24px';
+exit2.style.width = '24px';
 modalContent2.appendChild(confirm2);
 modalContent2.appendChild(playerLabel);
-modalContent2.appendChild(playerName1);
+modalContent2.appendChild(player);
 playerLabel.textContent = 'PLAYER-1';
 confirm2.textContent = 'CONFIRM';
 confirm2.setAttribute('id', 'confirm');
@@ -368,8 +395,7 @@ popModule2.addEventListener('click', () => {
 confirm2.addEventListener('click', (event) => {
   playerName2.setAttribute('value', 'AI');
   players.choosePlayerName();
-  player1.textContent = playerName1.value;
-  player2.textContent = playerName2.value;
+  player1.textContent = player.value;
   document.body.appendChild(player1);
   document.body.appendChild(player2);
   createModal2.style.display = 'none';
@@ -387,6 +413,16 @@ imgContainer.style.display = 'none';
 imgContainer.addEventListener('click', () => {
   imgContainer.style.display = 'none';
 });
+exit1.addEventListener('click', () => {
+  createModal.style.display = 'none';
+  popModule2.style.visibility = 'visible';
+  popModule.style.visibility = 'visible';
+});
+exit2.addEventListener('click', () => {
+  popModule2.style.visibility = 'visible';
+  popModule.style.visibility = 'visible';
+  createModal2.style.display = 'none';
+});
 export {
   playerName1,
   playerName2,
@@ -395,4 +431,5 @@ export {
   imgContainer,
   players,
   placeShip1Name,
+  player,
 };

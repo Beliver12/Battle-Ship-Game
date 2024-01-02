@@ -1,4 +1,4 @@
-import { board2, board } from './gameboard';
+import { board2, board } from './dom.js';
 import Createboard from './dom';
 import { players } from './dom';
 import { imgContainer } from './dom.js';
@@ -14,7 +14,7 @@ function Game() {
     imgContainer.style.display = 'block';
     return false;
   } 
-  Createboard();
+  return true;
 }
 
 export { Game };

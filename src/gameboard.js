@@ -1,6 +1,5 @@
 import Ship from './ship';
-import Createboard from './dom.js';
-import { imgContainer } from './dom.js';
+import Createboard, { imgContainer, players } from './dom.js';
 
 export default function Gameboard() {
   const createBoard = (arr = []) => {
@@ -41,16 +40,16 @@ export default function Gameboard() {
     return true;
   };
 
-
   const recieveAttack = (x, y) => {
+    const activePlayer = players.getActivePlayer();
     if (board[x][y] !== false && board[x][y] !== 'hit' && board[x][y] !== 'miss') {
       const temp = board[x][y];
       temp.hit(temp);
       board[x][y] = 'hit';
-      alert('hit');    
+      alert(`${activePlayer.name} hit a target`);
     } else if (board[x][y] === false && board[x][y] !== 'miss' && board[x][y] !== 'hit' && typeof board[x][y] !== 'object') {
       board[x][y] = 'miss';
-      alert('miss');
+      alert(`${activePlayer.name} missed a target`);
     } else if (board[x][y] === 'miss' || board[x][y] === 'hit') {
       alert('that position is allready hit');
       return false;
@@ -64,7 +63,7 @@ export default function Gameboard() {
       for (let j = 0; j < 10; j++) {
         if (board[i][j] === 'hit') {
           hits++;
-          ships++
+          ships++;
         }
         if (typeof board[i][j] === 'object') {
           ships++;
@@ -89,15 +88,14 @@ export default function Gameboard() {
     status,
   };
 }
-const board = Gameboard();
+
 const carrier = Ship('carrier', 5);
 const battleship = Ship('battleship', 4);
 const cruiser = Ship('cruiser', 3);
 const submarine = Ship('submarine', 3);
 const destroyer = Ship('destroyer', 2);
-const board2 = Gameboard();
 
-/*board.placeShip(carrier, [4, 0], [0, 0]);
+/* board.placeShip(carrier, [4, 0], [0, 0]);
 board.placeShip(battleship, [7, 5], [7, 9]);
 board.placeShip(cruiser, [5, 5], [5, 7]);
 board.placeShip(submarine, [2, 2], [2, 4]);
@@ -107,11 +105,9 @@ board2.placeShip(battleship, [7, 5], [7, 9]);
 board2.placeShip(cruiser, [5, 5], [5, 7]);
 board2.placeShip(submarine, [2, 2], [2, 4]);
 board2.placeShip(destroyer, [8, 5], [8, 6]);
-// board2.recieveAttack(8, 6);*/
+// board2.recieveAttack(8, 6); */
 
-
-board2.status(board2.board);
 
 export {
-  board2, battleship, destroyer, submarine, cruiser, board, carrier,
+  Gameboard, battleship, destroyer, submarine, cruiser, carrier,
 };

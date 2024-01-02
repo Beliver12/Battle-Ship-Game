@@ -1,6 +1,4 @@
-import {
-  board,
-  board2,
+import Gameboard, {
   battleship,
   destroyer,
   submarine,
@@ -31,6 +29,13 @@ placeShip2Cordinates.setAttribute('min', '00');
 placeShip2Cordinates.setAttribute('max', '99');
 const placeShipBtn = document.createElement('button');
 const description = document.createElement('div');
+
+let board2 = Gameboard();
+let board = Gameboard();
+function updateBoards() {
+  board = Gameboard();
+  board2 = Gameboard();
+}
 
 function createOption() {
   while (placeShip1Name.firstChild) {
@@ -67,7 +72,10 @@ export default function Createboard() {
   const activePlayer = players.getActivePlayer();
   let boardToinsert = board;
   let boardToAtt = board2;
-
+  if (activePlayer.name !== playerName1.value && activePlayer.name !== player.value
+    && activePlayer.name !== 'AI') {
+    createOption();
+  }
   if (activePlayer.name !== playerName1.value && activePlayer.name !== player.value) {
     boardToinsert = board2;
     boardToAtt = board;
@@ -138,21 +146,23 @@ export default function Createboard() {
           Number(e.currentTarget.attributes.x.value),
           Number(e.currentTarget.attributes.y.value),
         );
-        // e.currentTarget.disabled = true;
-
         if (Game() === false) {
           while (container.firstChild) {
             container.removeChild(container.firstChild);
           }
-          players.switchPlayerTurn();
+          player1.style.display = 'none';
+          player2.style.display = 'none';
+          document.body.appendChild(popModule);
+          document.body.appendChild(popModule2);
           popModule.style.visibility = 'visible';
           popModule2.style.visibility = 'visible';
+          updateBoards();
+          return false;
         }
+        players.switchPlayerTurn();
+        Createboard();
       });
     }
-  }
-  if (board.status(boardToinsert.board) === false && activePlayer.name !== 'AI') {
-    createOption();
   }
 
   if (
@@ -188,9 +198,8 @@ export default function Createboard() {
     ) {
       computerChoice = Math.floor(Math.random() * cells.length);
     }
-    window.setTimeout((e) => {
-      cells[computerChoice].click(e);
-    }, 1000);
+
+    cells[computerChoice].click();
   } else if (
     activePlayer.name === 'AI'
     && board.status(boardToinsert.board) === false
@@ -260,10 +269,16 @@ placeShipBtn.addEventListener('click', (event) => {
   for (let i = 0; i < ships.length; i++) {
     if (ships[i].name === selectedOption.value) {
       ship = ships[i];
+     selectedOption.remove(selectedOption[i]);
     }
   }
   if (placeShip1Cordinates.value > 99 && placeShip2Cordinates.value > 99) {
     alert('Cant enter number bigger than 9 try again!');
+    const shipOptions = document.createElement('option');
+    placeShip1Name.appendChild(shipOptions);
+    shipOptions.setAttribute('id', 'newOption');
+    shipOptions.setAttribute('value', ship.name);
+    shipOptions.textContent = ship.name;
     return false;
   }
 
@@ -286,6 +301,11 @@ placeShipBtn.addEventListener('click', (event) => {
   }
   if (x !== x2 || y !== y2) {
     alert('Cordinates are Invalid try again!');
+    const shipOptions = document.createElement('option');
+    placeShip1Name.appendChild(shipOptions);
+    shipOptions.setAttribute('id', 'newOption');
+    shipOptions.setAttribute('value', ship.name);
+    shipOptions.textContent = ship.name;
     return false;
   }
   if ((activePlayer.name !== playerName1.value && activePlayer.name !== player.value)
@@ -359,7 +379,10 @@ confirm.addEventListener('click', (event) => {
   document.body.appendChild(player1);
   document.body.appendChild(player2);
   createModal.style.display = 'none';
+  player1.style.display = 'block';
+  player2.style.display = 'block';
   Createboard();
+  createOption();
   event.preventDefault();
 });
 
@@ -372,6 +395,9 @@ popModule.textContent = 'PLAYER VS PLAYER';
 popModule.addEventListener('click', () => {
   popModule.style.visibility = 'hidden';
   popModule2.style.visibility = 'hidden';
+  playerName2.value = '';
+  player.value = '';
+  playerName1.value = '';
   createModal.style.display = 'block';
 });
 
@@ -401,17 +427,24 @@ createModal2.setAttribute('id', 'myModal');
 popModule2.addEventListener('click', () => {
   popModule2.style.visibility = 'hidden';
   popModule.style.visibility = 'hidden';
+  playerName2.value = '';
+  player.value = '';
+  playerName1.value = '';
   createModal2.style.display = 'block';
 });
 
 confirm2.addEventListener('click', (event) => {
-  playerName2.setAttribute('value', 'AI');
+  playerName2.value = 'AI';
   players.choosePlayerName();
   player1.textContent = player.value;
+  player1.style.display = 'block';
+  player2.style.display = 'block';
   document.body.appendChild(player1);
   document.body.appendChild(player2);
   createModal2.style.display = 'none';
+
   Createboard();
+  createOption();
   event.preventDefault();
 });
 
@@ -444,4 +477,6 @@ export {
   players,
   placeShip1Name,
   player,
+  board,
+  board2,
 };

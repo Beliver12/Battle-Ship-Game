@@ -10,8 +10,8 @@ function Game() {
     return false;
   } 
   if (board.status(board2.board) === 'all ships have been sunk') {
-    alert(`${activePlayer.name} Wins`);
     imgContainer.style.display = 'block';
+    alert(`${activePlayer.name} Wins`);
     return false;
   } 
   return true;

@@ -269,13 +269,13 @@ placeShipBtn.addEventListener('click', (event) => {
   for (let i = 0; i < ships.length; i++) {
     if (ships[i].name === selectedOption.value) {
       ship = ships[i];
-     selectedOption.remove(selectedOption[i]);
+      selectedOption.remove(selectedOption[i]);
     }
   }
-  if (placeShip1Cordinates.value > 99 && placeShip2Cordinates.value > 99) {
+  if (placeShip1Cordinates.value > 99 || placeShip2Cordinates.value > 99) {
     alert('Cant enter number bigger than 9 try again!');
     const shipOptions = document.createElement('option');
-    placeShip1Name.appendChild(shipOptions);
+    placeShip1Name.prepend(shipOptions);
     shipOptions.setAttribute('id', 'newOption');
     shipOptions.setAttribute('value', ship.name);
     shipOptions.textContent = ship.name;
@@ -302,7 +302,7 @@ placeShipBtn.addEventListener('click', (event) => {
   if (x !== x2 || y !== y2) {
     alert('Cordinates are Invalid try again!');
     const shipOptions = document.createElement('option');
-    placeShip1Name.appendChild(shipOptions);
+    placeShip1Name.prepend(shipOptions);
     shipOptions.setAttribute('id', 'newOption');
     shipOptions.setAttribute('value', ship.name);
     shipOptions.textContent = ship.name;

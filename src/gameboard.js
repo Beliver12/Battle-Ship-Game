@@ -55,7 +55,6 @@ export default function Gameboard() {
       return false;
     }
   };
-
   const status = (board) => {
     let hits = 0;
     let ships = 0;
@@ -70,6 +69,9 @@ export default function Gameboard() {
         }
       }
     }
+   // if (ships === 0) {
+   //   return 'board has no ships';
+   // }
     if (hits === 17) {
       return 'all ships have been sunk';
     }
@@ -106,7 +108,6 @@ board2.placeShip(cruiser, [5, 5], [5, 7]);
 board2.placeShip(submarine, [2, 2], [2, 4]);
 board2.placeShip(destroyer, [8, 5], [8, 6]);
 // board2.recieveAttack(8, 6); */
-
 
 export {
   Gameboard, battleship, destroyer, submarine, cruiser, carrier,
